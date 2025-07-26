@@ -3,36 +3,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     const categoryFilter = document.getElementById('category-filter');
     const errorContainer = document.getElementById('error-container');
     
-    // Load products
-    const products = await fetchProducts();
-    if (!products || products.length === 0) {
-        showError('Failed to load products. Please try again later.', 'error-container');
-        productsGrid.innerHTML = '';
-        return;
-    }
+    // Show loading state
+    productsGrid.innerHTML = `
+        <div class="col-span-full text-center py-12">
+            <i class="fas fa-spinner fa-spin text-2xl text-gray-400 mb-2"></i>
+            <p>Loading products...</p>
+        </div>
+    `;
     
-    // Populate categories
-    const categories = [...new Set(products.map(p => p.category))].filter(Boolean);
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category;
-        option.textContent = category;
-        categoryFilter.appendChild(option);
-    });
-    
-    // Display all products initially
-    displayProducts(products);
-    
-    // Filter products by category
-    categoryFilter.addEventListener('change', (e) => {
-        const selectedCategory = e.target.value;
-        if (selectedCategory === 'all') {
-            displayProducts(products);
-        } else {
-            const filtered = products.filter(p => p.category === selectedCategory);
-            displayProducts(filtered);
+    try {
+        const products = await fetchProducts();
+        
+        // Check if we only have the fallback product
+        if (products.length === 1 && products[0].id === 'fallback') {
+            showError('We\'re having trouble loading our products. Showing demo content instead.', 'error-container', true);
         }
-    });
+        
+        // Populate categories
+        const categories = [...new Set(products.map(p => p.category))].filter(Boolean);
+        categoryFilter.innerHTML = `
+            <option value="all">All Categories</option>
+            ${categories.map(cat => `<option value="${cat}">${cat}</option>`).join('')}
+        `;
+        
+        displayProducts(products);
+        
+    } catch (error) {
+        showError('Failed to load products. Please try again later.', 'error-container', true);
+        productsGrid.innerHTML = '';
+    }
 });
 
 function displayProducts(products) {
