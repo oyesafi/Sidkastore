@@ -1,81 +1,61 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productName = decodeURIComponent(urlParams.get('product') || 'Unknown Product');
-    const productPrice = parseFloat(urlParams.get('price')) || 0;
-    const orderSummary = document.getElementById('order-summary');
+    const form = document.getElementById('checkout-form');
     const formMessage = document.getElementById('form-message');
-    const checkoutForm = document.getElementById('checkout-form');
+    const submitBtn = form.querySelector('button[type="submit"]');
 
-    // Display order summary
-    orderSummary.innerHTML = `
-        <h3 class="text-lg font-semibold mb-2">Order Summary</h3>
-        <div class="flex justify-between mb-1">
-            <span>Product:</span>
-            <span>${productName}</span>
-        </div>
-        <div class="flex justify-between font-bold">
-            <span>Price:</span>
-            <span>$${productPrice.toFixed(2)}</span>
-        </div>
-    `;
-
-    // Set hidden field values
-    document.getElementById('product-name').value = productName;
-    document.getElementById('product-price').value = productPrice;
-
-    // Form submission handler
-    checkoutForm.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const submitButton = checkoutForm.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.innerHTML;
-        
         // Show loading state
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
-        submitButton.disabled = true;
-        formMessage.classList.add('hidden');
-
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+        submitBtn.disabled = true;
+        
         try {
-            // Prepare form data
-            const formData = new FormData(checkoutForm);
-            const formObject = Object.fromEntries(formData.entries());
-            
-            // Add timestamp and product info
-            formObject.timestamp = new Date().toISOString();
-            formObject.product = productName;
-            formObject.price = productPrice;
-
-            // Submit to Google Apps Script
-            const response = await fetch(
-                'https://script.google.com/macros/s/AKfycbz05uvsqZ2OKvzI1oDgFUcYeoXbmbmV2j5A6pHjggvsdsyXAaHkWVyflBjx2Dl6YNlj/exec', 
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams(formObject).toString()
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            // Validate form
+            const errors = validateForm();
+            if (errors.length > 0) {
+                showErrors(errors);
+                return;
             }
 
-            // Redirect to thank you page on success
-            window.location.href = 'thank-you.html';
+            // Prepare form data
+            const formData = new FormData(form);
+            const urlParams = new URLSearchParams(window.location.search);
+            formData.append('product-name', urlParams.get('product') || 'Unknown Product');
+            formData.append('product-price', urlParams.get('price') || 0);
+            
+            // Submit to Google Apps Script
+            const response = await fetch(
+                'https://script.google.com/macros/s/AKfycbz05uvsqZ2OKvzI1oDgFUcYeoXbmbmV2j5A6pHjggvsdsyXAaHkWVyflBjx2Dl6YNlj/exec',
+                {
+                    method: 'POST',
+                    body: new URLSearchParams(formData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }
+            );
+            
+            const result = await response.json();
+            
+            if (result.result === 'success') {
+                window.location.href = 'thank-you.html';
+            } else {
+                throw new Error(result.error || 'Submission failed');
+            }
             
         } catch (error) {
             console.error('Submission error:', error);
             formMessage.innerHTML = `
-                <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
                     <div class="flex">
                         <div class="flex-shrink-0">
                             <i class="fas fa-exclamation-circle text-red-400"></i>
                         </div>
                         <div class="ml-3">
                             <p class="text-sm text-red-700">
-                                Failed to submit order. Please try again or contact us if the problem persists.
-                                <br><br>
+                                Order submission failed: ${error.message}
                                 <button onclick="window.location.reload()" 
                                         class="mt-2 bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200">
                                     <i class="fas fa-sync-alt mr-1"></i> Try Again
@@ -87,9 +67,54 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             formMessage.classList.remove('hidden');
         } finally {
-            // Reset button state
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
         }
     });
+
+    function validateForm() {
+        const errors = [];
+        const fields = [
+            { id: 'name', name: 'Full Name' },
+            { id: 'email', name: 'Email' },
+            { id: 'phone', name: 'Phone Number' },
+            { id: 'address', name: 'Shipping Address' }
+        ];
+        
+        fields.forEach(field => {
+            const value = document.getElementById(field.id).value.trim();
+            if (!value) errors.push(`${field.name} is required`);
+        });
+        
+        // Validate email format
+        const email = document.getElementById('email').value.trim();
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errors.push('Please enter a valid email address');
+        }
+        
+        return errors;
+    }
+    
+    function showErrors(errors) {
+        formMessage.innerHTML = `
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-yellow-700">
+                            Please fix these errors:
+                            <ul class="list-disc pl-5 mt-1">
+                                ${errors.map(e => `<li>${e}</li>`).join('')}
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+        formMessage.classList.remove('hidden');
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+    }
 });
