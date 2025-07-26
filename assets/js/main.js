@@ -74,7 +74,7 @@ async function fetchProducts() {
             detail: 'This is a demo product shown because we couldn\'t load real products.',
             price: 19.99,
             category: 'Demo',
-            imageUrl: 'https://via.placeholder.com/300?text=Demo+Product',
+            imageUrl: 'https://imgshare.info/images/2025/07/20/Maa-2025.jpg',
             linkUrl: '#',
             timestamp: new Date().toISOString()
         }];
