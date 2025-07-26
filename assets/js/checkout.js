@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Submit to Google Apps Script
             const response = await fetch(
-                'https://script.google.com/macros/s/AKfycbz05uvsqZ2OKvzI1oDgFUcYeoXbmbmV2j5A6pHjggvsdsyXAaHkWVyflBjx2Dl6YNlj/exec',
+                'https://script.google.com/macros/s/AKfycbwjDanX5rzvCQZ006SDQXPA90MPtUggXsm5vLJfx64kOhahGTtXhqPgOtFA4gPE4s9q/exec',
                 {
                     method: 'POST',
                     body: new URLSearchParams(formData),
