@@ -3,74 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sid Creative - Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Sid Creative E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="./assets/css/style.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between">
-                <div class="flex space-x-7">
-                    <a href="index.html" class="flex items-center py-4 px-2">
-                        <span class="font-semibold text-gray-500 text-lg">Sid Creative</span>
-                    </a>
-                </div>
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button class="outline-none mobile-menu-button">
-                        <i class="fas fa-bars text-gray-500"></i>
-                    </button>
-                </div>
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-1">
-                    <a href="index.html" class="py-4 px-2 text-green-500 border-b-4 border-green-500 font-semibold">Home</a>
-                    <a href="products.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Products</a>
-                    <a href="about.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">About</a>
-                    <a href="contact.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Contact</a>
-                </div>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <button id="menu-toggle" class="md:hidden mr-4 text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                <a href="index.html" class="text-2xl font-bold text-indigo-600">Sid Creative</a>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-800 hover:text-indigo-600">Home</a>
+                <a href="products.html" class="text-gray-800 hover:text-indigo-600">Products</a>
+                <a href="about.html" class="text-gray-800 hover:text-indigo-600">About</a>
+                <a href="contact.html" class="text-gray-800 hover:text-indigo-600">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="checkout.html" class="text-gray-700 hover:text-indigo-600">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
             </div>
         </div>
-        <!-- Mobile Menu -->
-        <div class="hidden mobile-menu">
-            <ul>
-                <li><a href="index.html" class="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a></li>
-                <li><a href="products.html" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Products</a></li>
-                <li><a href="about.html" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">About</a></li>
-                <li><a href="contact.html" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <div class="bg-green-600 text-white py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl font-bold mb-2">Welcome to Sid Creative</h1>
-            <p class="text-xl mb-8">Discover our amazing products</p>
-            <a href="products.html" class="bg-white text-green-600 font-bold rounded-full py-3 px-8 shadow-lg uppercase tracking-wider hover:bg-gray-100 transition duration-300">Shop Now</a>
+    <!-- Mobile Sidebar Menu -->
+    <div id="mobile-menu" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full md:hidden z-50 transition duration-300 ease-in-out">
+        <div class="px-4 py-4 flex flex-col h-full">
+            <div class="flex justify-between items-center mb-8">
+                <a href="index.html" class="text-xl font-bold text-indigo-600">Sid Creative</a>
+                <button id="menu-close" class="text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="flex-1 flex flex-col space-y-4">
+                <a href="index.html" class="text-gray-800 hover:text-indigo-600 py-2 border-b border-gray-100">Home</a>
+                <a href="products.html" class="text-gray-800 hover:text-indigo-600 py-2 border-b border-gray-100">Products</a>
+                <a href="about.html" class="text-gray-800 hover:text-indigo-600 py-2 border-b border-gray-100">About</a>
+                <a href="contact.html" class="text-gray-800 hover:text-indigo-600 py-2 border-b border-gray-100">Contact</a>
+            </nav>
+            <div class="mt-auto pt-4 border-t border-gray-200">
+                <a href="checkout.html" class="flex items-center text-gray-700 hover:text-indigo-600">
+                    <i class="fas fa-shopping-cart mr-2"></i> Cart
+                </a>
+            </div>
         </div>
     </div>
 
+    <!-- Hero Section -->
+    <section class="bg-indigo-700 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Sid Creative</h1>
+            <p class="text-xl mb-8">Discover our amazing collection of products</p>
+            <a href="products.html" class="bg-white text-indigo-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition duration-300">Shop Now</a>
+        </div>
+    </section>
+
     <!-- Featured Products -->
-    <section class="container mx-auto px-6 py-12">
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Featured Products</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="featured-products">
+    <section class="py-12 container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-8 text-center">Featured Products</h2>
+        <div id="featured-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Products will be loaded here -->
-            <div class="text-center py-8">Loading products...</div>
+            <div class="text-center py-8">
+                <div class="animate-pulse flex space-x-4">
+                    <div class="flex-1 space-y-4 py-1">
+                        <div class="h-64 bg-gray-300 rounded"></div>
+                        <div class="space-y-2">
+                            <div class="h-4 bg-gray-300 rounded"></div>
+                            <div class="h-4 bg-gray-300 rounded w-5/6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="text-center mt-8">
-            <a href="products.html" class="bg-green-500 text-white font-bold py-3 px-8 rounded-full hover:bg-green-600 transition duration-300">View All Products</a>
+            <a href="products.html" class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition duration-300">View All Products</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white pt-12 pb-8">
-        <div class="container mx-auto px-6">
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">Sid Creative</h3>
-                    <p class="text-gray-400">Your one-stop shop for creative products.</p>
+                    <p class="text-gray-400">Your one-stop shop for creative products and solutions.</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold mb-4">Quick Links</h3>
@@ -87,17 +109,63 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 Sid Creative. All rights reserved.</p>
+                <p>&copy; 2023 Sid Creative. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script src="./assets/js/main.js"></script>
     <script>
         // Load featured products
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             loadFeaturedProducts();
+            
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const menuClose = document.getElementById('menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.remove('-translate-x-full');
+            });
+            
+            menuClose.addEventListener('click', function() {
+                mobileMenu.classList.add('-translate-x-full');
+            });
         });
+
+        async function loadFeaturedProducts() {
+            try {
+                const products = await fetchProducts();
+                const featuredContainer = document.getElementById('featured-products');
+                
+                // Display first 4 products as featured
+                const featuredProducts = products.slice(0, 4);
+                
+                featuredContainer.innerHTML = featuredProducts.map(product => `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                        <a href="product-detail.html?id=${product.id}">
+                            <div class="h-48 overflow-hidden">
+                                <img src="${product.imageUrl || 'https://via.placeholder.com/300'}" alt="${product.title}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-2">${product.title}</h3>
+                                <p class="text-gray-600 mb-2">$${product.price}</p>
+                                <button class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition duration-300">View Details</button>
+                            </div>
+                        </a>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('featured-products').innerHTML = `
+                    <div class="col-span-4 text-center py-8">
+                        <i class="fas fa-exclamation-triangle text-4xl text-yellow-500 mb-4"></i>
+                        <p class="text-xl mb-4">Failed to load featured products</p>
+                        <button onclick="loadFeaturedProducts()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Retry</button>
+                    </div>
+                `;
+            }
+        }
     </script>
 </body>
 </html>
