@@ -3,45 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CASmart - Products</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Products - Sid Creative E-Commerce</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="./assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
     <!-- Header (same as index.html) -->
-    <header class="bg-blue-600 text-white shadow-md">
-        <!-- ... same header content as index.html ... -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <button id="menu-toggle" class="md:hidden mr-4 text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                <a href="index.html" class="text-2xl font-bold text-indigo-600">Sid Creative</a>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-800 hover:text-indigo-600">Home</a>
+                <a href="products.html" class="text-gray-800 hover:text-indigo-600 font-semibold">Products</a>
+                <a href="about.html" class="text-gray-800 hover:text-indigo-600">About</a>
+                <a href="contact.html" class="text-gray-800 hover:text-indigo-600">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="checkout.html" class="text-gray-700 hover:text-indigo-600">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+            </div>
+        </div>
     </header>
+
+    <!-- Mobile Sidebar Menu (same as index.html) -->
+    <div id="mobile-menu" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform -translate-x-full md:hidden z-50 transition duration-300 ease-in-out">
+        <div class="px-4 py-4 flex flex-col h-full">
+            <div class="flex justify-between items-center mb-8">
+                <a href="index.html" class="text-xl font-bold text-indigo-600">Sid Creative</a>
+                <button id="menu-close" class="text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="flex-1 flex flex-col space-y-4">
+                <a href="index.html" class="text-gray-800 hover:text-indigo-600 py-2 border-b border-gray-100">Home</a>
+                <a href="products.html" class="text-gray-800 hover:text-indigo-600 py-2 border-b border-gray-100 font-semibold">Products</a>
+                <a href="about.html" class="text-gray-800 hover:text-indigo-600 py-2 border-b border-gray-100">About</a>
+                <a href="contact.html" class="text-gray-800 hover:text-indigo-600 py-2 border-b border-gray-100">Contact</a>
+            </nav>
+            <div class="mt-auto pt-4 border-t border-gray-200">
+                <a href="checkout.html" class="flex items-center text-gray-700 hover:text-indigo-600">
+                    <i class="fas fa-shopping-cart mr-2"></i> Cart
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Products Section -->
     <section class="py-12 container mx-auto px-4">
-        <h1 class="text-3xl font-bold mb-8">Our Products</h1>
-        
-        <!-- Category Filter -->
-        <div class="mb-8">
-            <label for="category-filter" class="block text-lg font-medium mb-2">Filter by Category:</label>
-            <select id="category-filter" class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-64">
-                <option value="all">All Categories</option>
-                <!-- Categories will be loaded by JavaScript -->
-            </select>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <h1 class="text-3xl font-bold mb-4 md:mb-0">Our Products</h1>
+            <div class="w-full md:w-auto">
+                <select id="category-filter" class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="all">All Categories</option>
+                    <!-- Categories will be loaded dynamically -->
+                </select>
+            </div>
         </div>
         
-        <!-- Products Grid -->
-        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Products will be loaded here by JavaScript -->
+        <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Products will be loaded here -->
             <div class="text-center py-8">
-                <i class="fas fa-spinner fa-spin text-4xl text-blue-500"></i>
-                <p class="mt-2">Loading products...</p>
+                <div class="animate-pulse flex space-x-4">
+                    <div class="flex-1 space-y-4 py-1">
+                        <div class="h-64 bg-gray-300 rounded"></div>
+                        <div class="space-y-2">
+                            <div class="h-4 bg-gray-300 rounded"></div>
+                            <div class="h-4 bg-gray-300 rounded w-5/6"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <div id="error-message" class="hidden text-center py-8">
+            <i class="fas fa-exclamation-triangle text-4xl text-yellow-500 mb-4"></i>
+            <p class="text-xl mb-4">Failed to load products. Please try again.</p>
+            <button onclick="loadProducts()" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition duration-300">Retry</button>
         </div>
     </section>
 
     <!-- Footer (same as index.html) -->
     <footer class="bg-gray-800 text-white py-8">
-        <!-- ... same footer content as index.html ... -->
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Sid Creative</h3>
+                    <p class="text-gray-400">Your one-stop shop for creative products and solutions.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white font-semibold">Products</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <p class="text-gray-400"><i class="fas fa-envelope mr-2"></i> oyesafi@gmail.com</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Sid Creative. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-    <script src="js/products.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/products.js"></script>
+    <script>
+        // Mobile menu toggle (same as index.html)
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const menuClose = document.getElementById('menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.remove('-translate-x-full');
+            });
+            
+            menuClose.addEventListener('click', function() {
+                mobileMenu.classList.add('-translate-x-full');
+            });
+            
+            // Initialize products
+            loadProducts();
+        });
+
+        // Category filter functionality
+        document.getElementById('category-filter').addEventListener('change', function() {
+            filterProductsByCategory(this.value);
+        });
+    </script>
 </body>
 </html>
