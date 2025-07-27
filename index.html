@@ -266,7 +266,12 @@
             border-bottom: 1px solid #eee;
         }
 
-   
+              .card a {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: grey;
+            cursor: pointer;
+        }
         .card h2 {
             font-size: 1.1rem;
             margin-bottom: 8px;
@@ -547,6 +552,7 @@
                         title: cells[2]?.v || '',
                         detail: cells[1]?.v || '',
                         price: cells[3]?.v || '',
+                        category: cells[4]?.v || '',
                         imageUrl: cells[5]?.v || '',
                         linkUrl: cells[6]?.v || '',
                     };
@@ -562,6 +568,9 @@
                     cardElement.innerHTML = `
                         <img src="${card.imageUrl}" alt="${card.title}">
                         <div class="card-content">
+          
+<a href="category.html?cat=${card.category}"><i class="fas fa-tag"></i> ${card.category}</a>
+
                             <h2>${card.title}</h2>
                             <p>${card.detail}</p>
                             <div class="price">Rs: ${card.price}</div>
