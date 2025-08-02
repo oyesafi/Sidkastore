@@ -549,12 +549,12 @@
                 const cards = jsonData.table.rows.slice(1).map(row => {
                     const cells = row.c;
                     return {
-                        title: cells[2]?.v || '',
-                        detail: cells[1]?.v || '',
-                        price: cells[3]?.v || '',
-                        category: cells[4]?.v || '',
-                        imageUrl: cells[5]?.v || '',
-                        linkUrl: cells[6]?.v || '',
+                        price: cells[1]?.v || '',
+                        detail: cells[2]?.v || '',
+                        title: cells[0]?.v || '',
+                        category: cells[6]?.v || '',
+                        imageUrl: cells[4]?.v || '',
+                        linkUrl: cells[3]?.v || '',
                     };
                 });
 
