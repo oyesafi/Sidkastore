@@ -192,7 +192,7 @@
     .floating-sync{
       position:fixed; right:22px; bottom:100px; z-index:1200;
       width:60px;height:60px;border-radius:14px; display:flex; align-items:center; justify-content:center;
-      box-shadow:var(--shadow); background:var(--card-bg); border:1px solid rgba(0,0,0,0.06); cursor:pointer;
+      color:var(--card-text);  box-shadow:var(--shadow); background:var(--card-bg); border:1px solid rgba(0,0,0,0.06); cursor:pointer;
     }
 
     /* -------------------------
@@ -371,6 +371,7 @@
           .catch(err => {
             console.error('Fetch error', err);
             cardsContainer.innerHTML = '<div class="loading">Error loading products.</div>';
+            renderProducts();
           });
       }
 
