@@ -1,632 +1,606 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sid Creative | E-Commerce Store</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sid Store</title>
 
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            user-select: none; 
-        }
-        
-        /* Header Styles */
-        header {
-            background-color: #2874f0;
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        
-        .user-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .user-actions button {
-            background: transparent;
-            color: white;
-            border: 1px solid white;
-            padding: 8px 15px;
-            border-radius: 2px;
-            cursor: pointer;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-        
-        .search-container {
-            width: 100%;
-            margin-top: 15px;
-        }
-        
-        .search-bar {
-            display: flex;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .search-bar input {
-            width: 100%;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 2px 0 0 2px;
-            font-size: 14px;
-        }
-        
-        .search-button {
-            background-color: #fb641b;
-            color: white;
-            border: none;
-            padding: 0 20px;
-            border-radius: 0 2px 2px 0;
-            cursor: pointer;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        nav {
-      background-color: white;
-      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-      padding: 10px 0;
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    /* -------------------------
+       Variables & base styles
+       ------------------------- */
+    :root{
+      --bg: #fafafa;
+      --text: #111;
+      --muted: #6b6b6b;
+      --card-bg: rgba(255,255,255,0.7);
+      --glass-blur: 10px;
+      --accent: #ff8c00;     /* primary button */
+      --accent-hover: #7b0e0e;/* hover */
+      --shadow: 0 6px 24px rgba(0,0,0,0.08);
+      --shadow-strong: 0 14px 40px rgba(0,0,0,0.12);
+      --radius: 14px;
+      --transition: all 0.28s ease;
+      --card-text: #111;
     }
-    
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
+
+    body.dark-mode{
+      --bg: #060606;
+      --text: #f4f4f4;
+      --muted: #bfbfbf;
+      --card-bg: rgba(20,20,20,0.6);
+      --card-text: #f4f4f4;
+      --accent: #ff8c00;
+      --accent-hover: #7b0e0e;
     }
-    
-    .home-link {
-      margin-right: 20px;
-      white-space: nowrap;
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:20px;
+      transition: var(--transition);
     }
-    
-    .home-link a {
-      text-decoration: none;
-      color: #2874f0;
-      font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 3px;
-      transition: background-color 0.3s;
+
+    .container{max-width:1300px;margin:0 auto}
+
+    /* -------------------------
+       Header
+       ------------------------- */
+    header{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+      align-items:flex-start;
     }
-    
-    .home-link a:hover {
-      background-color: #f0f7ff;
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
     }
-    
-    .marquee-container {
-      flex-grow: 1;
-      overflow: hidden;
-      white-space: nowrap;
+    .brand h1{
+      font-size:1.9rem;
+      background: var(--card-bg);
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      backdrop-filter: blur(var(--glass-blur));
+      padding:10px 18px;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,0.06);
+      box-shadow: var(--shadow);
+      color:var(--card-text);
     }
-    
-    .nav-links {
-      display: inline-block;
-      list-style: none;
-      padding-left: 100%;
-      animation: marquee 20s linear infinite;
+    .header-right{display:flex;gap:12px;align-items:center}
+
+    .search-wrap{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      width:470px;
+      max-width:60vw;
     }
-    
-    .nav-links li {
-      display: inline-block;
-      margin-right: 15px;
+    .search-input{
+      flex:1;
+      padding:11px 14px;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.35);
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      backdrop-filter: blur(var(--glass-blur));
+      transition: var(--transition);
+      color:var(--text);
     }
-    
-    .nav-links a {
-      text-decoration: none;
-      color: #2874f0;
-      font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 3px;
-      transition: background-color 0.3s;
+    .search-input:focus{outline:none; box-shadow:0 0 0 3px rgba(255,140,0,0.12)}
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:10px;
+      border:none; cursor:pointer; transition:var(--transition); font-weight:600;
+      box-shadow: var(--shadow); background:var(--accent); color:#fff;
     }
-    
-    .nav-links a:hover {
-      background-color: #f0f7ff;
+    .btn:active { transform: translateY(1px); box-shadow:0 2px 6px rgba(0,0,0,0.12) }
+
+    /* Floating theme toggle & clear button */
+    .theme-toggle{
+      width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+      background:var(--card-bg); -webkit-backdrop-filter: blur(var(--glass-blur));
+      backdrop-filter: blur(var(--glass-blur)); border:1px solid rgba(0,0,0,0.06);
+      box-shadow: var(--shadow); cursor:pointer;
     }
-    
+
+    /* -------------------------
+       Category marquee
+       ------------------------- */
+    .category-marquee{
+      margin:18px 0 26px 0;
+      overflow:hidden;
+      border-radius:12px;padding:10px 12px;
+      background: var(--card-bg);
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      backdrop-filter: blur(var(--glass-blur));
+      border:1px solid rgba(0,0,0,0.06);
+      box-shadow: var(--shadow);
+      white-space:nowrap;
+    }
+    .marquee-track{display:inline-block; animation:marquee 26s linear infinite; will-change:transform}
+    .category-chip{display:inline-flex;align-items:center;padding:8px 14px;margin-right:12px;border-radius:999px;
+      background: rgba(255,255,255,0.08); cursor:pointer; color:var(--card-text); font-weight:600;
+      transition: var(--transition);
+    }
+    .category-chip:hover{transform:translateY(-3px)}
     @keyframes marquee {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
+      0%{ transform: translateX(0) }
+      100%{ transform: translateX(-50%) }
     }
-    
-    /* [Rest of your CSS remains the same] */
-  
-        /* Navigation 
-        nav {
-            background-color: white;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10px 20px;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 15px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #2874f0;
-            font-weight: 500;
-        }*/
-        
-        /* Main Content */
-        .main-container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-        
-        .banner {
-            background-color: #2874f0;
-            color: white;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 30px;
-            border-radius: 4px;
-        }
-        
-        .banner h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        /* Product Cards */
-        #card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 8px;
-        }
-        .card {
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    display: flex; /* Add flex display */
-    flex-direction: column; /* Stack children vertically */
-    height: 100%; /* Make all cards same height */
-}
 
-.card-content {
-    padding: 15px;
-    flex-grow: 1; /* Allow content to grow and push button down */
-    display: flex; /* Nested flex for content */
-    flex-direction: column;
-}
+    /* -------------------------
+       Cards grid
+       ------------------------- */
+    .cards-container{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+      gap:20px;
+    }
+    .card{
+      border-radius: var(--radius);
+      overflow:hidden;
+      background: var(--card-bg);
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      backdrop-filter: blur(var(--glass-blur));
+      box-shadow: var(--shadow);
+      border:1px solid rgba(0,0,0,0.05);
+      transition: var(--transition);
+      display:flex; flex-direction:column; min-height:360px;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow:var(--shadow-strong) }
 
-.card button {
-    margin-top: auto; /* Push button to bottom */
-    background-color: #fb641b;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    width: 100%;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s;
-}
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            background-color: #fff;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
+    .image-slider{position:relative;height:220px;overflow:hidden}
+    .slides{display:flex;height:100%;transition:transform 0.55s cubic-bezier(.2,.9,.2,1)}
+    .slide{ min-width:100%; height:100%; background-size:cover; background-position:center; display:flex; align-items:flex-end;}
+    .slide-overlay{
+      width:100%; padding:12px; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      color:white; display:flex; justify-content:space-between; align-items:center;
+    }
+    .card-body{ padding:16px; color:var(--card-text); flex:1; display:flex; flex-direction:column }
+    .card-title{ font-size:1.05rem; margin-bottom:8px; font-weight:700; color:var(--card-text) }
+    .card-desc{ color:var(--muted); font-size:0.95rem; margin-bottom:14px; flex:1 }
+    .card-meta{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px }
+    .price{ font-weight:800; color:var(--card-text) }
+    .tag{ padding:6px 10px; border-radius:999px; background: rgba(255,255,255,0.12); font-size:0.85rem; color:var(--card-text) }
 
-              .card a {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            color: grey;
-            cursor: pointer;
-        }
-        .card h2 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: #212121;
-        }
-        
-        .card p {
-            color: #757575;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .price {
-            color: #2874f0;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin: 10px 0;
-        }
-        
-        
-        .card button:hover {
-            background-color: #e55b17;
-        }
-        
+    .card-footer{ padding:14px; display:flex; gap:10px; align-items:center; justify-content:space-between; border-top:1px solid rgba(0,0,0,0.03) }
+    .btn.small{ padding:8px 12px; border-radius:10px; font-size:0.95rem; }
 
+    .btn.disabled{ background:#ddd;color:#777; cursor:not-allowed; box-shadow:none; transform:none }
 
+    /* Loading & empty */
+    .loading{ display:flex; gap:12px; align-items:center; justify-content:center; padding:40px; font-weight:600; color:var(--muted) }
+    .spinner{ width:28px;height:28px;border-radius:50%; border:3px solid rgba(0,0,0,0.08); border-top:3px solid var(--text); animation:spin 1s linear infinite; }
+    @keyframes spin{ 0%{transform:rotate(0)}100%{transform:rotate(360deg)} }
 
-        /* Updated Footer Styles */
+    /* -------------------------
+       Floating Sync button
+       ------------------------- */
+    .floating-sync{
+      position:fixed; right:22px; bottom:100px; z-index:1200;
+      width:60px;height:60px;border-radius:14px; display:flex; align-items:center; justify-content:center;
+      box-shadow:var(--shadow); background:var(--card-bg); border:1px solid rgba(0,0,0,0.06); cursor:pointer;
+    }
 
-       footer {
-            background-color: #172337;
-            color: white;
-            padding: 30px 0;
-            margin-top: 40px;
-        }
-        
-        .footer-grid {
-            max-width: 340px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(2, 2fr);
-            gap: 10px;
-            padding: 0 20px;
-        }
-        
-        .footer-box {
-            padding: 8px;
-        }
-        
-        .footer-box h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #878787;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #454d5e;
-        }
-        
-        .footer-box ul {
-            list-style: none;
-        }
-        
-        .footer-box li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-box a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-        
-        .footer-box a:hover {
-            color: #2874f0;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #454d5e;
-            margin-top: 30px;
-            font-size: 0.8rem;
-            color: #878787;
-            grid-column: 1 / -1;
-        }
-        */
-        /* Responsive Design */
-        @media (max-width: 760px) {
-            .header-top {
-                flex-wrap: wrap;
-            }
-            
-            .logo {
-                order: 1;
-            }
-            
-            .user-actions {
-                order: 2;
-                margin-left: auto;
-            }
-            
-            .search-container {
-                order: 3;
-                width: 100%;
-                margin-top: 15px;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .footer-grid {
-                grid-template-columns: 2fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .user-actions button {
-                padding: 8px 10px;
-                font-size: 0.9rem;
-            }
-            
-            .search-button span {
-                display: none;
-            }
-            
-            .search-button i {
-                margin-right: 0;
-            }
-        }
-    
-    </style>
+    /* -------------------------
+       Footer
+       ------------------------- */
+    footer{ margin-top:28px; padding:18px; border-radius:12px; background:var(--card-bg); -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur)); border:1px solid rgba(0,0,0,0.06); box-shadow:var(--shadow) }
+    .footer-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; align-items:start }
+    .footer-box h3{ margin-bottom:12px; font-size:1.05rem; color:var(--card-text) }
+    .footer-box a{ display:block; color:var(--muted); margin-bottom:8px; text-decoration:none }
+    .copyright{ grid-column:1/-1; text-align:center; color:var(--muted); padding-top:12px; border-top:1px solid rgba(0,0,0,0.04); margin-top:12px }
+
+    /* -------------------------
+       Responsive
+       ------------------------- */
+    @media (max-width:1000px){
+      .footer-grid{ grid-template-columns:repeat(2,1fr) }
+      .search-wrap{ width:100% }
+    }
+    @media (max-width:600px){
+      header{ gap:10px }
+      .brand h1{ font-size:1.3rem; padding:8px 12px }
+      .footer-grid{ grid-template-columns:1fr }
+      .image-slider{ height:180px }
+      .floating-sync{ bottom:90px }
+      .marquee-track{ animation-duration:20s }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
     <header>
-        <div class="header-container">
-            <div class="logo">Sid Creative | Discounted Items</div>
-            <div class="user-actions">
-<empty>
-            </div>
-<br>
-            <div class="search-container">
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Search for products..." autocomplete="off">
-                    <button class="search-button" id="search-btn">
-                        <i class="fas fa-search"></i>
-                        <span>Search</span>
-                    </button>
-                </div>
-            </div>
+      <div class="brand">
+        <h1>Sid Store <i class="fas fa-images" style="margin-left:8px;font-weight:600"></i></h1>
+      </div>
+
+      <div class="header-right" style="margin-left:auto">
+        <div class="search-wrap" role="search" aria-label="Product search">
+          <input id="searchInput" class="search-input" placeholder="Search products..." aria-label="Search products">
+          <button id="searchBtn" class="btn small" title="Search"><i class="fas fa-search"></i></button>
         </div>
+
+        <div id="themeToggle" class="theme-toggle" title="Toggle theme" aria-pressed="false" style="margin-left:10px">
+          <i id="themeIcon" class="fas fa-moon"></i>
+        </div>
+      </div>
     </header>
 
+    <!-- Categories -->
+    <div class="category-marquee" aria-hidden="false">
+      <div id="marqueeTrack" class="marquee-track"></div>
+    </div>
 
-
-    
-  <nav>
-    <div class="nav-container">
-      <div class="home-link">
-        <a href="#"><i class="fas fa-home"></i> Home</a>
-      </div>
-      <div class="marquee-container">
-        <ul class="nav-links">
-
-  <li><a href="category.html?cat=accessories"><i class="fas fa-ring"></i> Accessories</a></li>
-  <li><a href="category.html?cat=boys fashion"><i class="fas fa-tshirt"></i> Boys Fashion</a></li>
-  <li><a href="category.html?cat=electronics"><i class="fas fa-laptop"></i> Electronics</a></li>
-  <li><a href="category.html?cat=home"><i class="fas fa-home"></i> Home & Garden</a></li>
-  <li><a href="category.html?cat=beauty"><i class="fas fa-spa"></i> Beauty & Personal Care</a></li>
-  <li><a href="category.html?cat=sports"><i class="fas fa-running"></i> Sports & Outdoors</a></li>
-  <li><a href="category.html?cat=toys"><i class="fas fa-gamepad"></i> Toys & Games</a></li>
-  <li><a href="category.html?cat=books"><i class="fas fa-book"></i> Books & Media</a></li>
-  <li><a href="category.html?cat=health"><i class="fas fa-heartbeat"></i> Health & Wellness</a></li>
-  <li><a href="category.html?cat=automotive"><i class="fas fa-car"></i> Automotive</a></li>
-  <li><a href="category.html?cat=girls fashion"><i class="fas fa-tshirt"></i> Girls Fashion</a></li>
-  <li><a href="category.html?cat=office"><i class="fas fa-briefcase"></i> Office Supplies</a></li>
-  <li><a href="category.html?cat=jewelry"><i class="fas fa-gem"></i> Jewelry</a></li>
-  <li><a href="category.html?cat=shoes"><i class="fas fa-shoe-prints"></i> Shoes</a></li>
-  <li><a href="category.html?cat=baby"><i class="fas fa-baby"></i> Baby Products</a></li>
-  <li><a href="category.html?cat=groceries"><i class="fas fa-shopping-basket"></i> Groceries</a></li>
-</ul>
-
-          
+    <!-- Cards -->
+    <div id="cardsContainer" class="cards-container">
+      <div class="loading">
+        <div class="spinner" aria-hidden="true"></div>
+        Loading products...
       </div>
     </div>
-  </nav>
-  
- 
 
+    <!-- Floating sync (clear filters) -->
+    <button id="syncBtn" class="floating-sync" title="Reset filters" aria-label="Reset filters">
+      <i class="fas fa-sync fa-lg"></i>
+    </button>
 
-
-    
-    <div class="main-container">
-        <div class="banner">
-            <h1>Great Deals Today!</h1>
-            <p>Up to 50% off on selected items</p>
-        </div>
-        
-        <div id="card-container"></div>
-    </div>
-    
-    
-    
+    <!-- Footer -->
     <footer>
-        <div class="footer-grid">
-            <!-- About Section -->
-            <div class="footer-box">
-                <h3><i class="fas fa-info-circle"></i> About</h3>
-                <ul>
-                    <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                    <li><a href="#"><i class="fas fa-building"></i> About Us</a></li>
-                    <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
-                </ul>
-            </div>
-            
-            <!-- Help Section -->
-            <div class="footer-box">
-                <h3><i class="fas fa-question-circle"></i> Help</h3>
-                <ul>
-                    <li><a href="#"><i class="fas fa-credit-card"></i> Payments</a></li>
-                    <li><a href="#"><i class="fas fa-truck"></i> Shipping</a></li>
-                    <li><a href="#"><i class="fas fa-exchange-alt"></i> Returns</a></li>
-                </ul>
-            </div>
-            
-            <!-- Policy Section -->
-            <div class="footer-box">
-                <h3><i class="fas fa-file-contract"></i> Policy</h3>
-                <ul>
-                    <li><a href="#"><i class="fas fa-undo"></i> Return Policy</a></li>
-                    <li><a href="#"><i class="fas fa-file-alt"></i> Terms of Use</a></li>
-                    <li><a href="#"><i class="fas fa-shield-alt"></i> Security</a></li>
-                </ul>
-            </div>
-            
-            <!-- Social Section -->
-            <div class="footer-box">
-                <h3><i class="fas fa-share-alt"></i> Social</h3>
-                <ul>
-                    <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
-                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                </ul>
-            </div>
-            
-            <div class="copyright">
-                <i class="far fa-copyright"></i> 2025 MyStore. All Rights Reserved.
-            </div>
+      <div class="footer-grid">
+        <div class="footer-box">
+          <h3><i class="fas fa-store"></i> Sid Store</h3>
+          <p style="color:var(--muted)">Small demo storefront built with HTML/CSS/JS. Showcase products dynamically from a Google Sheets TSV.</p>
         </div>
+        <div class="footer-box">
+          <h3><i class="fas fa-headset"></i> Support</h3>
+          <a href="#">Help Center</a>
+          <a href="#">Order Tracking</a>
+          <a href="#">Returns</a>
+        </div>
+        <div class="footer-box">
+          <h3><i class="fas fa-file-contract"></i> Legal</h3>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+        <div class="footer-box">
+          <h3><i class="fas fa-share-alt"></i> Connect</h3>
+          <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+          <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+        </div>
+
+        <div class="copyright">
+          <i class="far fa-copyright"></i> <span id="year"></span> Sid Store. All Rights Reserved.
+        </div>
+      </div>
     </footer>
+  </div>
 
-    
+  <script>
+    (function(){
+      // -------------------------
+      // Configuration
+      // -------------------------
+      const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPtt5U3y0VP-Fxg6yIw5MfBkEocQcZd-SWRq-s3x2mvtrlqHNwDkjpE9KWJq9hXjBCRIW5wdMUsh3g/pub?output=tsv';
 
-    <script>
-        const sheetId = '1bLwxVzaBspSCsc173yHfwhDgcL1wbcCeIkAqJYdzt9Y';
-        const gid = '2128414158';
-        const apiUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?gid=${gid}`;
+      // DOM refs
+      const cardsContainer = document.getElementById('cardsContainer');
+      const marqueeTrack = document.getElementById('marqueeTrack');
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+      const syncBtn = document.getElementById('syncBtn');
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const yearEl = document.getElementById('year');
 
-        async function fetchData() {
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.text();
-                const jsonData = JSON.parse(data.substring(47).slice(0, -2));
-                return jsonData;
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                return null;
+      yearEl.textContent = new Date().getFullYear();
+
+      // State
+      let products = [];
+      let cardIntervals = new Map(); // slider intervals per card
+      let activeCategory = null;
+
+      // -------------------------
+      // Utilities
+      // -------------------------
+      function safeTrim(s){ return (s||'').trim() }
+      function isValidUrl(u){
+        try { const url = new URL(u); return true } catch(e){ return false }
+      }
+
+      // -------------------------
+      // Fetch TSV & parse
+      // Expected columns:
+      // name, price, detail, url, images (comma-separated), id, sub-category, main-category, rank
+      // -------------------------
+      function fetchProducts(){
+        fetch(SHEET_URL)
+          .then(r => {
+            if (!r.ok) throw new Error('Network response not ok');
+            return r.text();
+          })
+          .then(txt => {
+            const lines = txt.split(/\r?\n/).filter(Boolean);
+            if (lines.length <= 1){
+              products = [];
+              renderProducts();
+              return;
             }
-        }
-
-        async function renderCards() {
-            const jsonData = await fetchData();
-            if (jsonData) {
-                const cards = jsonData.table.rows.slice(1).map(row => {
-                    const cells = row.c;
-                    return {
-                        price: cells[1]?.v || '',
-                        detail: cells[2]?.v || '',
-                        title: cells[0]?.v || '',
-                        category: cells[6]?.v || '',
-                        imageUrl: cells[4]?.v || '',
-                        linkUrl: cells[3]?.v || '',
-                    };
-                });
-
-
-                cards.reverse(); 
-                const cardContainer = document.getElementById('card-container');
-                cardContainer.innerHTML = ''; // Clear existing cards
-                cards.forEach(card => {
-                    const cardElement = document.createElement('div');
-                    cardElement.className = 'card';
-                    cardElement.innerHTML = `
-                        <img src="${card.imageUrl}" alt="${card.title}">
-                        <div class="card-content">
-          
-<a href="category.html?cat=${card.category}"><i class="fas fa-tag"></i> ${card.category}</a>
-
-                            <h2>${card.title}</h2>
-                            <p>${card.detail}</p>
-                            <div class="price">Rs: ${card.price}</div>
-                            <button onclick="openLink('${card.linkUrl}')">Buy Now</button>
-                        </div>
-                    `;
-                    cardContainer.appendChild(cardElement);
-                });
-                
-                // Store cards for searching
-                window.productCards = cards;
-            }
-        }
-
-        function openLink(url) {
-            window.open(url, '_blank');
-        }
-
-        // Search functionality
-        document.getElementById('search-btn').addEventListener('click', performSearch);
-        document.getElementById('search-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-        
-        function performSearch() {
-            const searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
-            const cards = document.querySelectorAll('.card');
-            
-            if (!searchTerm) {
-                // Show all cards if search is empty
-                cards.forEach(card => card.style.display = 'block');
-                return;
-            }
-            
-            let hasResults = false;
-            cards.forEach(card => {
-                const title = card.querySelector('h2').textContent.toLowerCase();
-                const detail = card.querySelector('p').textContent.toLowerCase();
-                
-                if (title.includes(searchTerm) || detail.includes(searchTerm)) {
-                    card.style.display = 'block';
-                    hasResults = true;
-                } else {
-                    card.style.display = 'none';
-                }
+            // header may be present — try to detect header row by checking if first row contains non-numeric price etc.
+            const startIndex = 0; // we will attempt to detect header by column count
+            const parsed = [];
+            lines.forEach((ln, i) => {
+              // skip header if it contains non-data words (common words like "name" or "price")
+              if (i === 0 && /name|price|detail|url|images/i.test(ln)) return;
+              const cols = ln.split('\t');
+              // ensure we have at least 9 columns (if not, pad)
+              while(cols.length < 9) cols.push('');
+              const obj = {
+                name: safeTrim(cols[0]),
+                price: safeTrim(cols[1]),
+                detail: safeTrim(cols[2]),
+                url: safeTrim(cols[3]),
+                images: safeTrim(cols[4]),
+                id: safeTrim(cols[5]),
+                subCategory: safeTrim(cols[6]),
+                mainCategory: safeTrim(cols[7]),
+                rank: safeTrim(cols[8])
+              };
+              // skip empty lines where name is empty
+              if (obj.name) parsed.push(obj);
             });
-            
-            if (!hasResults) {
-                alert('No products found matching your search.');
-            }
+            products = parsed;
+            generateCategories();
+            renderProducts();
+          })
+          .catch(err => {
+            console.error('Fetch error', err);
+            cardsContainer.innerHTML = '<div class="loading">Error loading products.</div>';
+          });
+      }
+
+      // -------------------------
+      // Categories
+      // -------------------------
+      function generateCategories(){
+        const cats = Array.from(new Set(products.map(p => p.mainCategory || 'Uncategorized'))).filter(Boolean);
+        if (cats.length === 0){
+          marqueeTrack.innerHTML = `<div class="category-chip">No categories</div>`;
+          return;
+        }
+        // Create doubled content to make marquee appear continuous
+        const items = cats.map(c => `<div class="category-chip" data-cat="${encodeURIComponent(c)}">${escapeHtml(c)}</div>`).join('');
+        marqueeTrack.innerHTML = items + items;
+        // add listeners
+        marqueeTrack.querySelectorAll('.category-chip').forEach(chip => {
+          chip.addEventListener('click', (e) => {
+            const cat = decodeURIComponent(chip.getAttribute('data-cat'));
+            activeCategory = cat;
+            filterByCategory(cat);
+          });
+        });
+      }
+
+      // -------------------------
+      // Render products
+      // -------------------------
+      function renderProducts(filteredList = null){
+        // clear intervals
+        cardIntervals.forEach((iv)=> clearInterval(iv));
+        cardIntervals.clear();
+
+        const list = filteredList || products;
+        if (!list || list.length === 0){
+          cardsContainer.innerHTML = '<div class="loading">No products available.</div>';
+          return;
         }
 
-        // Initial render
-        renderCards();
-    </script>
+        cardsContainer.innerHTML = '';
+        list.forEach((p, idx) => {
+          const card = document.createElement('article');
+          card.className = 'card';
+          card.setAttribute('data-name', p.name.toLowerCase());
+          card.setAttribute('data-maincat', (p.mainCategory||'').toLowerCase());
+          // images
+          const images = (p.images || '').split(',').map(s=>s.trim()).filter(Boolean);
+          const sliderId = 'slider-' + idx + '-' + (p.id || idx);
+
+          const sliderHtml = images.length
+            ? `<div class="image-slider" id="${sliderId}">
+                <div class="slides">
+                  ${images.map(src => `<div class="slide" style="background-image:url('${escapeAttr(src)}')"><div class="slide-overlay"><span class="tag">${escapeHtml(p.subCategory||p.mainCategory||'')}</span></div></div>`).join('')}
+                </div>
+              </div>`
+            : `<div class="image-slider">
+                <div class="slides">
+                  <div class="slide" style="background:#efefef; display:flex; align-items:center; justify-content:center;">
+                    <i class="fas fa-image" style="font-size:36px; opacity:0.35"></i>
+                    <div class="slide-overlay"><span class="tag">${escapeHtml(p.subCategory||p.mainCategory||'')}</span></div>
+                  </div>
+                </div>
+              </div>`;
+
+          // buttons
+          const visitBtn = (p.url && isValidUrl(p.url))
+            ? `<a class="btn small" href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Visit</a>`
+            : `<button class="btn small disabled" disabled><i class="fas fa-unlink"></i> No Link</button>`;
+
+          card.innerHTML = `
+            ${sliderHtml}
+            <div class="card-body">
+              <div class="card-meta">
+                <div class="price">Rs ${escapeHtml(p.price || '—')}</div>
+                <div class="timestamp" style="color:var(--muted);font-size:0.9rem">${escapeHtml(p.rank || p.mainCategory || '')}</div>
+              </div>
+              <div class="card-title">${escapeHtml(p.name)}</div>
+              <div class="card-desc">${escapeHtml(p.detail || '')}</div>
+            </div>
+            <div class="card-footer">
+              <div style="display:flex;gap:8px;align-items:center">${visitBtn}</div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button class="btn small categoryBtn" data-cat="${escapeAttr(p.mainCategory||'')}"><i class="fas fa-tag"></i> ${escapeHtml(p.mainCategory || 'Uncategorized')}</button>
+              </div>
+            </div>
+          `;
+
+          cardsContainer.appendChild(card);
+
+          // wire category button
+          const catBtn = card.querySelector('.categoryBtn');
+          if (catBtn){
+            catBtn.addEventListener('click', (e)=>{
+              e.preventDefault();
+              const cat = catBtn.getAttribute('data-cat') || '';
+              activeCategory = cat;
+              filterByCategory(cat);
+            });
+          }
+
+          // init auto-slider if multiple images
+          if (images.length > 1){
+            const sliderEl = document.querySelector('#' + sliderId + ' .slides');
+            if (sliderEl){
+              let current = 0;
+              // clone first slide to create smooth loop effect
+              const first = sliderEl.children[0].cloneNode(true);
+              sliderEl.appendChild(first);
+              const total = images.length;
+              const interval = setInterval(() => {
+                current++;
+                sliderEl.style.transform = `translateX(${-current * 100}%)`;
+                // when hitting clone -> reset
+                if (current === total){
+                  setTimeout(()=> {
+                    sliderEl.style.transition = 'none';
+                    sliderEl.style.transform = 'translateX(0%)';
+                    current = 0;
+                    // force reflow then restore transition
+                    void sliderEl.offsetWidth;
+                    sliderEl.style.transition = 'transform 0.55s cubic-bezier(.2,.9,.2,1)';
+                  }, 520);
+                }
+              }, 3000);
+              cardIntervals.set(sliderId, interval);
+            }
+          }
+        });
+      }
+
+      // -------------------------
+      // Filters
+      // -------------------------
+      function filterByCategory(category){
+        if(!category) return showAll();
+        const catLower = (category||'').toLowerCase();
+        const cards = cardsContainer.querySelectorAll('.card');
+        let anyVisible = false;
+        cards.forEach(card => {
+          const main = (card.getAttribute('data-maincat')||'').toLowerCase();
+          const name = (card.getAttribute('data-name')||'').toLowerCase();
+          if (main.includes(catLower) || name.includes(catLower)){
+            card.style.display = '';
+            anyVisible = true;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        // show sync btn with a subtle pulse when active
+        syncBtn.classList.toggle('active', !!category);
+      }
+
+      function showAll(){
+        activeCategory = null;
+        const cards = cardsContainer.querySelectorAll('.card');
+        cards.forEach(card => card.style.display = '');
+        syncBtn.classList.remove('active');
+      }
+
+      // -------------------------
+      // Search
+      // -------------------------
+      function searchProducts(){
+        const q = (searchInput.value || '').trim().toLowerCase();
+        if(!q){
+          // if there's an active category, reapply it
+          if (activeCategory) filterByCategory(activeCategory); else showAll();
+          return;
+        }
+        const cards = cardsContainer.querySelectorAll('.card');
+        let found = false;
+        cards.forEach(card => {
+          const name = (card.getAttribute('data-name')||'').toLowerCase();
+          const desc = (card.querySelector('.card-desc')?.textContent || '').toLowerCase();
+          if (name.includes(q) || desc.includes(q)) {
+            card.style.display = '';
+            found = true;
+          } else card.style.display = 'none';
+        });
+        if(!found){
+          cardsContainer.innerHTML = '<div class="loading">No products found.</div>';
+        }
+      }
+
+      // -------------------------
+      // Theme toggle
+      // -------------------------
+      function toggleTheme(){
+        document.body.classList.toggle('dark-mode');
+        const dark = document.body.classList.contains('dark-mode');
+        themeIcon.classList.remove(dark ? 'fa-moon':'fa-sun');
+        themeIcon.classList.add(dark ? 'fa-sun':'fa-moon');
+        themeToggle.setAttribute('aria-pressed', String(dark));
+      }
+
+      // -------------------------
+      // Small helpers to avoid injection
+      // -------------------------
+      function escapeHtml(s){
+        if(!s) return '';
+        return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+      }
+      function escapeAttr(s){
+        if(!s) return '';
+        return s.replaceAll('"','&quot;').replaceAll("'",'&#39;').trim();
+      }
+
+      // -------------------------
+      // Events
+      // -------------------------
+      searchBtn.addEventListener('click', ()=> searchProducts());
+      searchInput.addEventListener('keydown', (e)=> { if(e.key === 'Enter') searchProducts(); });
+
+      syncBtn.addEventListener('click', ()=>{
+        // reset search & category filters
+        searchInput.value = '';
+        showAll();
+        // restore full list (in case we replaced container with "no products found")
+        renderProducts();
+      });
+
+      themeToggle.addEventListener('click', toggleTheme);
+
+      // initial load
+      fetchProducts();
+
+      // Expose for debugging if needed (dev only)
+      window._sid = { fetchProducts, products };
+
+    })();
+  </script>
 </body>
 </html>
